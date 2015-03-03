@@ -35,7 +35,7 @@ A directive to make something draggable.
   spx-drag-effect="'copyMove'"
   spx-drag-data="{ 'json/my-data': { foo: '1', bar: someScopedValue }, 'text/plain': 'Hello, there', 'text/uri-list': 'http://example.org/' }"
   spx-drop-type="['json/my-data', 'text/uri-list', 'text/plain']"
-
+  >drag me</div>
 ```
 
 ### Attributes
