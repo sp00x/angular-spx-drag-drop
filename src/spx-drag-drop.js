@@ -1,4 +1,4 @@
-/*! spxDragDrop v0.0 | (c) 2015 Rune Bjerke | License ? */
+/*! spxDragDrop v0.1.0 | (c) 2015 Rune Bjerke | License MIT */
 
 /*
  * Inspired by Angular draganddrop by Greg Bergé (MIT license)
@@ -8,13 +8,6 @@
  * https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Drag_and_drop
  * https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Drag_operations
  * https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Recommended_Drag_Types
- */
-
-/*
- * TODO: change the spxDragBegin handler to be able to supply an object with multiple types
- *        e.g. { 'application/json': data, 'text/plain': foo }
- *
- * TODO: reflect the same ^ in spxDragData property..
  */
 
 (function()
@@ -490,7 +483,7 @@
                             // accept explicitly
                             currentAccept = true;
                         }
-                        else if (res != null) // if we get null/undefined, assume that meant NO!
+                        else// if (res != null) // if we get null/undefined, assume that meant NO!
                         {
                             // reject explicitly
                             currentAccept = false;
@@ -595,8 +588,7 @@
                 'spxDragEnd': '&',
                 'spxDragClass': '@',
                 'spxDragEffect': '=',
-                'spxDragData': '=',
-                'spxDragType': '@'
+                'spxDragData': '='
             },
             link: dragLink.bind($, true, $parse)
         };
@@ -626,9 +618,9 @@
                 'spxDrop': '=',
                 'spxDropDrop': '&',
                 'spxDropOver': '&',
-                'spxDropClass': '@',
+                'spxDropClass': '=',
                 'spxDragEffect': '=',
-                'spxDropAccept': '@',
+                'spxDropType': '=',
                 'spxDropRejectFiles': '=',
                 'spxDropEffectDefaultPriority': '=',
                 'spxDropEffectModifierKeys': '='
