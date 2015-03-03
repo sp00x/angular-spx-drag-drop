@@ -200,7 +200,7 @@ As a work-around for this issue, 2 additional attributes exist, which does not n
 
 *object* (`{ 'c': 'copy', 'a': 'link', 's': 'move' }`)
 
-This object defines the outcome of the combination of using modifier keys such as *ctrl*, *alt* and *shift*. If *ctrl* and *alt* are pressed, the `'ca'` key is checked. If *alt* is pressed, the `'a'` key is checked, and if *ctrl*, *alt* and *shift* are pressed, the `'cas'` key is pressed, and so on.
+This object defines the outcome of the combination of using modifier keys such as *ctrl*, *alt* and *shift*. If *ctrl* and *alt* are pressed, the `'ca'` property is checked. If *alt* is pressed, the `'a'` property is checked, and if *ctrl*, *alt* and *shift* are pressed, the `'cas'` property is pressed, and so on.
 
 `'c'` for *ctrl* is always first, followed by `'a'` for *alt*, then `'s'` for *shift*. `''` means no modifier keys are pressed.
 
