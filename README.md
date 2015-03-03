@@ -16,10 +16,9 @@ May contain traces of nuts.
 2. Include the script file
 `<script type="text/javascript" src="bower_components/spx-drag-drop/src/spx-drag-drop.js"></script>`
 3. Add this script to your Angular app's dependencies:  
-```javascript
-angular.module('yourApp', [ 'spxDragDrop' ])
-```
-4. Wow. Such drag. Very drop.
+`angular.module('yourApp', [ 'spxDragDrop' ])`
+4. Sprinkle HTML with `spx-drag` and `spx-drop` and write event handlers.
+5. Wow. Such drag. Very drop.
 
 ## spx-drag
 
@@ -107,7 +106,7 @@ A directive to make something accept dropped items.
 
 ### Example
 
-```
+```html
 <div
   spx-drop
   spx-drop-over="dropOver($event, $dropData)"
