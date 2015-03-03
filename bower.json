@@ -1,0 +1,31 @@
+{
+  "name": "spx-drag-drop",
+  "version": "0.1.0",
+
+  "homepage": "https://github.com/sp00x/angular-spx-drag-drop",
+  "authors": [
+    "Rune Bjerke <github.public@green.spoox.org>"
+  ],
+  "description": "Yet another set of drag & drop directives for Angular",
+  "main": "src/spx-drag-drop.js",
+  "moduleType": [
+    "globals"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/sp00x/angular-spx-drag-drop.git"
+  },
+  "keywords": [
+    "drag",
+    "drop",
+    "angular"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
