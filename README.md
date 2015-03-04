@@ -1,12 +1,12 @@
 # spx-drag-drop
 
-Yet another set of HTML5 drag & drop directives for AngularJS.
+Yet another set of [HTML5 drag & drop](http://caniuse.com/#feat=dragndrop) directives for [AngularJS](https://angularjs.org/).
 
 **WARNING: Experimental first version! "Works-for-me / YMMV"**
 
 Written partly because I needed to better understand how some aspects of AngularJS worked, but mostly because the existing set of components I found didn't work as I wanted them to (so what else is new..).
 
-Inspired by "[angular-draganddrop](https://github.com/neoziro/angular-draganddrop)" by Greg Bergé .. which did some, but not all the things I wanted to do.
+Inspired by "[angular-draganddrop](https://github.com/neoziro/angular-draganddrop)" which did *some*, but not all the things I wanted to do.
 
 May contain traces of nuts.
 

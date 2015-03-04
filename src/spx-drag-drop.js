@@ -1,4 +1,4 @@
-/*! spxDragDrop v0.1.0 // (c) 2015 Rune Bjerke // License MIT */
+/*! spxDragDrop v0.1.1 // (c) 2015 Rune Bjerke // License MIT */
 
 (function()
 {
