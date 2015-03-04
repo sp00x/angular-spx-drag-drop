@@ -1,14 +1,33 @@
 # spx-drag-drop
 
-Yet another set of drag & drop directives for AngularJS.
+Yet another set of HTML5 drag & drop directives for AngularJS.
 
 **WARNING: Experimental first version! "Works-for-me / YMMV"**
 
 Written partly because I needed to better understand how some aspects of AngularJS worked, but mostly because the existing set of components I found didn't work as I wanted them to (so what else is new..).
 
-Inspired by "Angular draganddrop" by Greg Bergé .. which didn't quite do what I wanted it to do.
+Inspired by "[angular-draganddrop](https://github.com/neoziro/angular-draganddrop)" by Greg Bergé .. which did some, but not all the things I wanted to do.
 
 May contain traces of nuts.
+
+### Features
+
+So what's so special about this? Well probably nothing much, but:
+
+Drag:
+
+* Supports dragging multiple types of data
+* Can invoke custom function before dragging to modify / set drag parameters
+
+Drop:  
+
+* Supports dropping multiple types of data
+* Workaround for missing modifier keys (copy, move, link) in Chrome
+
+Both:
+
+* Works in Firefox and Chrome (only ones tested)
+* No jQuery dependencies
 
 ## Use
 

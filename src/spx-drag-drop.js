@@ -1,14 +1,4 @@
-/*! spxDragDrop v0.1.0 | (c) 2015 Rune Bjerke | License MIT */
-
-/*
- * Inspired by Angular draganddrop by Greg Bergé (MIT license)
- * which didn't quite do what I wanted it to do.
- *
- * https://developer.mozilla.org/en-US/docs/Web/API/DataTransfer
- * https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Drag_and_drop
- * https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Drag_operations
- * https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Recommended_Drag_Types
- */
+/*! spxDragDrop v0.1.0 // (c) 2015 Rune Bjerke // License MIT */
 
 (function()
 {
@@ -119,10 +109,10 @@
 
         function dragStartListener(e)
         {
-            log.group();
+            if (DEBUG) log.group();
             try
             {
-                log.log("spx-drag dragstart", e);
+                if (DEBUG) log.log("spx-drag dragstart", e);
 
                 // re-read stuff
                 dragEffect = (useIsolatedScope) ? scope.spxDragEffect : scope.$eval(attrs.spxDragEffect);
@@ -130,19 +120,19 @@
                 // evaluate data (if any)
                 var data = useIsolatedScope ? scope.spxDragData : ev(attrs.spxDragData);
 
-                log.info("spx-drag data=%o, e=%o", data, dragEffect);
+                if (DEBUG) log.info("spx-drag data=%o, e=%o", data, dragEffect);
 
                 // if a drag-begin handler is listed, call it
                 if (dragBeginHandler)
                 {
-                    log.info("spx-data dispatching to drag-begin handler..");
+                    if (DEBUG) log.info("spx-data dispatching to drag-begin handler..");
                     scope.$apply(function ()
                     {
                         var ret = dragBeginHandler({
                             $event: e,
                             $dragData: { data: data, effect: dragEffect}
                         });
-                        log.info("spx-data drag-begin handler returned:", ret);
+                        if (DEBUG) log.info("spx-data drag-begin handler returned:", ret);
                         if (ret != null && typeof ret == 'object')
                         {
                             if (ret.data) data = ret.data;
@@ -169,7 +159,7 @@
                         {
                             // if json/* or application/json or application/*+json
                             var jsonData = angular.toJson(dragData); // avoids $$-prefixed properties
-                            log.debug("setting json type: %o -> %o", dragType, jsonData);
+                            if (DEBUG) log.debug("setting json type: %o -> %o", dragType, jsonData);
                             e.dataTransfer.setData(dragType, jsonData);
                         }
                         else
@@ -185,7 +175,7 @@
                             else
                                 s = dragData.toString();
 
-                            log.debug("setting string type: %o -> %o", dragType, s);
+                            if (DEBUG) log.debug("setting string type: %o -> %o", dragType, s);
                             e.dataTransfer.setData(dragType, s);
                         }
                     }
@@ -194,11 +184,11 @@
                     dragClass = (useIsolatedScope) ? scope.spxDragClass : scope.$eval(attrs.spxDragClass);
                     if (dragClass) elem.addClass(dragClass);
 
-                    log.log("spx-drag dragstart accepted drag: d=%o, t=%o, c=%o", data, dragType, dragClass);
+                    if (DEBUG) log.log("spx-drag dragstart accepted drag: d=%o, t=%o, c=%o", data, dragType, dragClass);
                 }
                 else
                 {
-                    log.log("spx-drag dragstart REJECTED drag");
+                    if (DEBUG) log.log("spx-drag dragstart REJECTED drag");
                 }
 
                 // stop event propagation (handled)
@@ -206,7 +196,7 @@
             }
             finally
             {
-                log.groupEnd();
+                if (DEBUG) log.groupEnd();
             }
         }
 
@@ -219,7 +209,7 @@
             // if a drag-end handler is listed, call it
             if (dragEndHandler)
             {
-                log.log("spx-data dispatching to drag-end handler..");
+                if (DEBUG) log.log("spx-data dispatching to drag-end handler..");
                 scope.$apply(function ()
                 {
                     dragEndHandler({$event: e});
@@ -284,7 +274,7 @@
 
         if (drop === false) return;
 
-        //log.log("spx-drop of=%o df=%o af=%o ac=%o rc=%o e=%o t=%o", dropOverHandler, dropHandler, dropAcceptHandler, dropAcceptClass, dropRejectClass, dropEffect, dropType);
+        //if (DEBUG) log.log("spx-drop of=%o df=%o af=%o ac=%o rc=%o e=%o t=%o", dropOverHandler, dropHandler, dropAcceptHandler, dropAcceptClass, dropRejectClass, dropEffect, dropType);
 
         var currentAccept = false;
         var currentEffectAllowed = 'none';
@@ -302,13 +292,13 @@
 
                 var keys = (e.ctrlKey ? "c" : "") + (e.altKey ? "a" : "") + (e.shiftKey ? "s" : "");
 
-                log.debug("keys:", keys, e.dataTransfer.effectAllowed);
+                if (DEBUG) log.debug("keys:", keys, e.dataTransfer.effectAllowed);
 
                 // see if what the key combo is trying to do is allowed
                 var op = dropEffectModifierKeyTable[keys];
                 if (op != null)
                 {
-                    log.debug('desired based on keys is: ' + op);
+                    if (DEBUG) log.debug('desired based on keys is: ' + op);
                     if (allowedDrop[op] === true && allowedDrag[op] === true)
                         e.dataTransfer.dropEffect = op;
                 }
@@ -317,25 +307,25 @@
                 // then just pick the first allowed one
                 if (e.dataTransfer.dropEffect == "none" && keys == "")
                 {
-                    log.debug("trying defaults..", allowedDrag);
+                    if (DEBUG) log.debug("trying defaults..", allowedDrag);
                     for (var i=0; dropEffectDefaultPriority.length>i; i++)
                     {
                         if (allowedDrag[dropEffectDefaultPriority[i]])
                         {
-                            log.debug("chose default:", dropEffectDefaultPriority[i]);
+                            if (DEBUG) log.debug("chose default:", dropEffectDefaultPriority[i]);
                             e.dataTransfer.dropEffect = dropEffectDefaultPriority[i];
                             break;
                         }
                     }
                 }
-                log.debug("-> result:", e.dataTransfer.dropEffect);
+                if (DEBUG) log.debug("-> result:", e.dataTransfer.dropEffect);
             }
             return e.dataTransfer.dropEffect;
         }
 
         function dropListenerEvent(e)
         {
-            log.log("spx-drop drop", e, e.dataTransfer.types);
+            if (DEBUG) log.log("spx-drop drop", e, e.dataTransfer.types);
             if (dropClass) elem.removeClass(dropClass);
 
             monkeyPatchDropEffect(e);
@@ -347,7 +337,7 @@
             {
                 scope.$apply(function ()
                 {
-                    log.log("invoking drop handler..");
+                    if (DEBUG) log.log("invoking drop handler..");
                     var data = {
                         effect: e.dataTransfer.dropEffect,
                         items: {}
@@ -374,14 +364,14 @@
                         $event: e,
                         $dropData: data
                     });
-                    log.log("drop handler returned:", res);
+                    if (DEBUG) log.log("drop handler returned:", res);
                 })
             }
         }
 
         function dragOverListener(e)
         {
-            //log.log("spx-drop dragover", e, currentAccept);
+            //if (DEBUG) log.log("spx-drop dragover", e, currentAccept);
             if (currentAccept)
             {
                 monkeyPatchDropEffect(e);
@@ -396,7 +386,7 @@
 
         function dragEnterListener(e)
         {
-            log.log("spx-drop dragenter", e.dataTransfer);
+            if (DEBUG) log.log("spx-drop dragenter", e.dataTransfer);
 
             dropEffectDefaultPriority = useIsolatedScope ? scope.spxDropEffectDefaultPriority : ev(attrs.spxDropEffectDefaultPriority);
             dropEffectModifierKeyTable = useIsolatedScope ? scope.spxDropEffectModifierKeys : ev(attrs.spxDropEffectModifierKeys);
@@ -406,7 +396,7 @@
             var dt = e.dataTransfer;
 
             if (dt.files && dt.files.length > 0)
-                log.log(" - files: ", dt.files);
+                if (DEBUG) log.log(" - files: ", dt.files);
 
             var dragTypes = {};
             if (dt.types)
@@ -415,8 +405,8 @@
                 {
                     dragTypes[t] = true;
                 });
-                log.log(" - dt.types: ", dt.types);
-                log.log(" - dragTypes: ", dragTypes);
+                if (DEBUG) log.log(" - dt.types: ", dt.types);
+                if (DEBUG) log.log(" - dragTypes: ", dragTypes);
             }
 
             dropEffect = useIsolatedScope ? scope.spxDropEffect : ev(attrs.spxDropEffect);
@@ -438,7 +428,7 @@
                 acceptedTypes = acceptedTypes.concat(dropAcceptedTypes);
             }
 
-            log.log("allowed types:", JSON.stringify(acceptedTypes));
+            if (DEBUG) log.log("allowed types:", JSON.stringify(acceptedTypes));
 
             currentAccept = false;
 
@@ -446,7 +436,7 @@
             {
                 if (dragTypes[t])
                 {
-                    log.info("pre-accepting drag type:", t);
+                    if (DEBUG) log.info("pre-accepting drag type:", t);
                     currentAccept = true;
                 }
             });
@@ -455,9 +445,9 @@
             {
                 scope.$apply(function()
                 {
-                    log.log("invoking drop-over handler..");
+                    if (DEBUG) log.log("invoking drop-over handler..");
                     var res = dropOverHandler({ $event: e, $dropData: { acceptedTypes: acceptedTypes, effect: dropEffect, className: dropClass, accept: currentAccept }});
-                    log.log("drop-over handler returned:", res);
+                    if (DEBUG) log.log("drop-over handler returned:", res);
 
                     if (res != null && typeof res == 'object')
                     {
@@ -471,7 +461,7 @@
                         {
                             if (dragTypes[t])
                             {
-                                log.info("accepting drag type:", t);
+                                if (DEBUG) log.info("accepting drag type:", t);
                                 currentAccept = true;
                             }
                         });
@@ -496,14 +486,14 @@
             currentRejectFile = false;
             if (!currentAccept && dropRejectFiles && dragTypes['Files'])
             {
-                log.info("'accepting' rejected file..");
+                if (DEBUG) log.info("'accepting' rejected file..");
                 currentAccept = true;
                 currentRejectFile = true;
             }
 
             if (currentAccept)
             {
-                log.info("accepting drop!");
+                if (DEBUG) log.info("accepting drop!");
 
                 monkeyPatchDropEffect(e);
 
@@ -533,7 +523,7 @@
             else
             {
                 // do nothing to indicate we did not accept it
-                log.info("rejecting drop!");
+                if (DEBUG) log.info("rejecting drop!");
             }
         }
 
