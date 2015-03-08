@@ -2,33 +2,53 @@ module.exports = function (grunt)
 {
   grunt.initConfig(
   {
-    uglify:
-    {
-      default:
-      {
-        files:
-        {
-          'src/spx-drag-drop.min.js': 'src/spx-drag-drop.js'
+    pkg: grunt.file.readJSON('package.json'),
+
+    update_json: {
+      options: {
+        src: 'package.json',
+        indent: "  "
+      },
+      bower: {
+        src: 'package.json',
+        dest: 'bower.json',
+        fields: 'name, version, description, repository, license, keywords'
+      }
+    },
+
+    concat: {
+      dist: {
+        options: {
+          banner: '/*! <%= pkg.name %> v<%= pkg.version %> by <%= pkg.author.name %> | License: <%= pkg.license %> | <%= grunt.template.today("yyyy-mm-dd") %> */\n'
         },
-        options:
+        src: [ 'src/*.js' ],
+        dest: 'dist/<%= pkg.name %>.js'
+      }
+    },
+
+    uglify: {
+      options: {
+        preserveComments: 'some',
+        sourceMap: 'dist/<%= pkg.name %>.map',
+        sourceMappingURL: 'dist/<%= pkg.name %>.map',
+        compress:
         {
-          sourceMap: 'src/spx-drag-drop.min.map',
-          sourceMappingURL: 'src/spx-drag-drop.min.map',
-          preserveComments: 'some',
-          compress:
+          global_defs:
           {
-            global_defs:
-            {
-              "DEBUG": false
-            },
-            dead_code: true
-          }
+            "DEBUG": false
+          },
+          dead_code: true
         }
+      },
+      dist: {
+        src: 'dist/<%= pkg.name %>.js',
+        dest: 'dist/<%= pkg.name %>.min.js'
       }
     }
+
   });
 
-  grunt.loadNpmTasks('grunt-contrib-uglify');
+  require('load-grunt-tasks')(grunt); // load all grunt tasks. Done!
 
-  grunt.registerTask('default', ['uglify']);
+  grunt.registerTask('default', ['update_json', 'concat', 'uglify']);
 }

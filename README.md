@@ -1,4 +1,4 @@
-# spx-drag-drop
+# angular-spx-drag-drop
 
 Yet another set of [HTML5 drag & drop](http://caniuse.com/#feat=dragndrop) directives for [AngularJS](https://angularjs.org/).
 
@@ -33,7 +33,7 @@ Both:
 
 1. Include Angular's JS files (duh)
 2. Include the script file
-`<script type="text/javascript" src="bower_components/spx-drag-drop/src/spx-drag-drop.js"></script>`
+`<script type="text/javascript" src="bower_components/angular-spx-drag-drop/dist/angular-spx-drag-drop.min.js"></script>`
 3. Add this script to your Angular app's dependencies:  
 `angular.module('yourApp', [ 'spxDragDrop' ])`
 4. Sprinkle HTML with `spx-drag` and `spx-drop` and write event handlers.

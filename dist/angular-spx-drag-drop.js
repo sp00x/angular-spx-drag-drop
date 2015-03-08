@@ -1,3 +1,4 @@
+/*! angular-spx-drag-drop v0.1.2 by Rune Bjerke | License: MIT | 2015-03-08 */
 (function()
 {
     angular
